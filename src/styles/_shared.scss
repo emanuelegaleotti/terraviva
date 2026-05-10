@@ -1,0 +1,9 @@
+// ============================================================
+// SHARED – TerraViva
+// Single import for all component .module.scss files:
+//   @use '../../../styles/shared' as *;
+// Exposes all variables, functions, and mixins without prefix.
+// ============================================================
+@forward 'abstracts/variables';
+@forward 'abstracts/functions';
+@forward 'abstracts/mixins';

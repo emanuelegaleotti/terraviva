@@ -1,0 +1,27 @@
+// ============================================================
+// FUNCTIONS – TerraViva
+// ============================================================
+
+/// Convert px to rem
+/// @param {Number} $px - pixel value (unitless or px)
+/// @return {String} rem value
+@function rem($px) {
+  @return #{calc($px / 16)}rem;
+}
+
+/// Retrieve a value from the type scale map
+/// @param {String} $key - scale key (xs, sm, md, lg, xl, 2xl…)
+@function font-size($key) {
+  @return map-get($type-scale, $key);
+}
+
+/// Fluid clamp helper
+/// @param {Number} $min-size   - min rem value
+/// @param {Number} $max-size   - max rem value
+/// @param {Number} $min-width  - viewport width where min applies (px)
+/// @param {Number} $max-width  - viewport width where max applies (px)
+@function fluid($min-size, $max-size, $min-width: 375px, $max-width: 1280px) {
+  $slope: calc(($max-size - $min-size) / ($max-width - $min-width));
+  $intercept: calc($min-size - $slope * $min-width);
+  @return clamp(#{$min-size}, #{$intercept} + #{$slope * 100vw}, #{$max-size});
+}

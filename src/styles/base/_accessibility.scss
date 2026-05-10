@@ -1,0 +1,73 @@
+// ============================================================
+// ACCESSIBILITY – TerraViva
+// WCAG 2.1 Level AA utilities and global overrides
+// ============================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+// ------------------------------------------------------------
+// Skip to main content link
+// Hidden above viewport, slides down on focus
+// ------------------------------------------------------------
+.skip-link {
+  position: fixed;
+  top: $space-4;
+  left: $space-4;
+  z-index: $z-toast;
+  padding: $space-3 $space-6;
+  background-color: $color-focus;
+  color: $color-white;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: $radius-md;
+  text-decoration: none;
+  transform: translateY(calc(-100% - #{$space-8}));
+  transition: transform $transition-base;
+
+  &:focus,
+  &:focus-visible {
+    transform: translateY(0);
+    outline: 2px solid $color-white;
+    outline-offset: 2px;
+  }
+}
+
+// ------------------------------------------------------------
+// Global focus styles
+// ------------------------------------------------------------
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  @include focus-ring;
+  border-radius: $radius-sm;
+}
+
+// ------------------------------------------------------------
+// Screen reader only utility
+// ------------------------------------------------------------
+.sr-only {
+  @include sr-only;
+}
+
+// ------------------------------------------------------------
+// Reduced motion
+// ------------------------------------------------------------
+.no-motion {
+  animation: none !important;
+  transition: none !important;
+}
+
+// ------------------------------------------------------------
+// Windows High Contrast Mode
+// ------------------------------------------------------------
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid ButtonText;
+  }
+
+  a {
+    color: LinkText;
+  }
+}

@@ -1,0 +1,156 @@
+@use '../../../styles/shared' as *;
+
+.section {
+  background-color: $color-green-800;
+  padding-block: $space-24;
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.inner {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+// ─── Header ──────────────────────────────────────────────────
+.header {
+  margin-bottom: $space-16;
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba($color-green-200, 0.55);
+  margin-bottom: $space-4;
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 3rem);
+  font-weight: 600;
+  color: $color-green-50;
+  line-height: 1.15;
+  margin-bottom: $space-4;
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  font-style: italic;
+  color: rgba($color-green-200, 0.6);
+}
+
+// ─── Tabs ────────────────────────────────────────────────────
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-1;
+  justify-content: center;
+  margin-bottom: $space-12;
+  width: 100%;
+  border-bottom: 1px solid rgba($color-green-600, 0.3);
+  padding-bottom: 0;
+}
+
+.tab {
+  padding: $space-3 $space-6;
+  font-family: $font-heading;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: rgba($color-green-200, 0.55);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  margin-bottom: -1px;
+  @include transition(color border-color);
+  @include focus-visible-ring($color-sun-300);
+
+  &:hover {
+    color: $color-green-100;
+  }
+}
+
+// Season-specific active accent colours
+.tabActive {
+  border-bottom-color: currentColor;
+}
+
+.tabActive.primavera { color: $color-green-400; }
+.tabActive.estate    { color: $color-sun-300; }
+.tabActive.autunno   { color: $color-earth-400; }
+.tabActive.inverno   { color: $color-neutral-400; }
+
+// ─── Panel ───────────────────────────────────────────────────
+.panel {
+  width: 100%;
+  animation: panelIn 0.4s ease;
+}
+
+.tagline {
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: rgba($color-green-200, 0.5);
+  font-style: italic;
+  margin-bottom: $space-8;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+  justify-content: center;
+  max-width: 680px;
+  margin-inline: auto;
+}
+
+.product {
+  padding: $space-2 $space-5;
+  border: 1px solid rgba($color-green-500, 0.35);
+  border-radius: $radius-full;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $color-green-100;
+  letter-spacing: 0.02em;
+  @include transition(background-color border-color);
+
+  &:hover {
+    background-color: rgba($color-green-500, 0.15);
+    border-color: rgba($color-green-500, 0.6);
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .panel {
+    animation: none;
+  }
+}

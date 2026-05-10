@@ -1,0 +1,237 @@
+@use '../../../styles/shared' as *;
+
+.section {
+  background-color: $color-white;
+  padding-block: $space-24;
+}
+
+// ─── Two-column grid ─────────────────────────────────────────
+.inner {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-16;
+
+  @include respond-from('lg') {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: $space-24;
+  }
+}
+
+// ─── Text column ─────────────────────────────────────────────
+.textCol {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: $color-earth-600;
+  margin-bottom: $space-4;
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 3.5vw + 0.5rem, 3rem);
+  font-weight: 600;
+  color: $color-green-900;
+  line-height: 1.1;
+  margin-bottom: $space-6;
+}
+
+.body {
+  font-size: 1rem;
+  color: $color-text-muted;
+  line-height: 1.85;
+  max-width: 52ch;
+  margin-bottom: $space-5;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: $space-4;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: $color-primary;
+  text-decoration: none;
+  border-bottom: 2px solid $color-sun-400;
+  padding-bottom: 2px;
+  @include transition(color);
+  @include focus-visible-ring;
+
+  &:hover {
+    color: $color-green-800;
+  }
+
+  &:visited {
+    color: $color-primary;
+  }
+}
+
+// ─── Visual column ───────────────────────────────────────────
+.visual {
+  opacity: 0;
+  transform: translateX(28px);
+  transition:
+    opacity 0.9s ease 0.2s,
+    transform 0.9s ease 0.2s;
+
+  &.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.visualCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-8;
+  padding: $space-16 $space-12;
+  background-color: $color-green-50;
+  border: 1px solid $color-green-100;
+  border-radius: $radius-lg;
+  min-height: 380px;
+}
+
+// Seasonal quadrant wheel
+.wheel {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  overflow: hidden;
+  border: 2px solid $color-green-200;
+}
+
+.quadrant {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-family: $font-heading;
+    font-size: 2.75rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+}
+
+.q1 {
+  background-color: rgba($color-green-200, 0.45);
+
+  span { color: $color-green-700; }
+}
+
+.q2 {
+  background-color: rgba($color-sun-100, 0.7);
+
+  span { color: $color-sun-400; }
+}
+
+.q3 {
+  background-color: rgba($color-earth-100, 0.6);
+
+  span { color: $color-earth-600; }
+}
+
+.q4 {
+  background-color: rgba($color-neutral-200, 0.45);
+
+  span { color: $color-neutral-600; }
+}
+
+.wheelCaption {
+  font-family: $font-heading;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: $color-green-700;
+  text-align: center;
+  line-height: 1.5;
+}
+
+// ─── Stats row ───────────────────────────────────────────────
+.statsRow {
+  @include container;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid $color-neutral-200;
+  margin-top: $space-16;
+
+  @include respond-from('md') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.stat {
+  padding: $space-10 $space-6;
+  border-right: 1px solid $color-neutral-200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s ease;
+
+  &:nth-child(2) {
+    border-right: none;
+
+    @include respond-from('md') {
+      border-right: 1px solid $color-neutral-200;
+    }
+  }
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.statVisible {
+  opacity: 1;
+  transform: none;
+}
+
+.statValue {
+  font-family: $font-heading;
+  font-size: clamp(2.5rem, 4vw + 0.5rem, 4rem);
+  font-weight: 700;
+  color: $color-green-700;
+  line-height: 1;
+  margin-bottom: $space-2;
+}
+
+.statLabel {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $color-text-muted;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .textCol,
+  .visual,
+  .stat {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

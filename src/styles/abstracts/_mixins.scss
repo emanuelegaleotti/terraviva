@@ -1,0 +1,170 @@
+// ============================================================
+// MIXINS – TerraViva
+// ============================================================
+@use 'variables' as *;
+
+// ------------------------------------------------------------
+// Responsive breakpoints
+// ------------------------------------------------------------
+
+/// Min-width media query
+/// @param {String|Number} $bp - breakpoint name or px value
+@mixin respond-from($bp) {
+  $value: $bp;
+  @if $bp == 'sm'  { $value: $bp-sm; }
+  @else if $bp == 'md'  { $value: $bp-md; }
+  @else if $bp == 'lg'  { $value: $bp-lg; }
+  @else if $bp == 'xl'  { $value: $bp-xl; }
+  @else if $bp == '2xl' { $value: $bp-2xl; }
+  @media (min-width: #{$value}) { @content; }
+}
+
+/// Max-width media query
+@mixin respond-until($bp) {
+  $value: $bp;
+  @if $bp == 'sm'  { $value: $bp-sm; }
+  @else if $bp == 'md'  { $value: $bp-md; }
+  @else if $bp == 'lg'  { $value: $bp-lg; }
+  @else if $bp == 'xl'  { $value: $bp-xl; }
+  @else if $bp == '2xl' { $value: $bp-2xl; }
+  @media (max-width: calc(#{$value} - 1px)) { @content; }
+}
+
+/// Range media query
+@mixin respond-between($bp-min, $bp-max) {
+  @include respond-from($bp-min) {
+    @include respond-until($bp-max) {
+      @content;
+    }
+  }
+}
+
+// ------------------------------------------------------------
+// Accessibility
+// ------------------------------------------------------------
+
+/// Visually hidden but accessible to screen readers
+@mixin sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/// Undo sr-only (make visible again)
+@mixin sr-only-focusable {
+  &:focus,
+  &:focus-within {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: inherit;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+  }
+}
+
+/// Consistent high-contrast focus ring (WCAG 2.1 AA)
+@mixin focus-ring($color: $color-focus, $offset: 3px) {
+  outline: 2px solid $color;
+  outline-offset: $offset;
+}
+
+/// Remove default focus, apply custom ring on focus-visible only
+@mixin focus-visible-ring($color: $color-focus, $offset: 3px) {
+  &:focus { outline: none; }
+  &:focus-visible { @include focus-ring($color, $offset); }
+}
+
+// ------------------------------------------------------------
+// Typography
+// ------------------------------------------------------------
+
+/// Fluid heading sizes
+@mixin heading-fluid($min, $max) {
+  font-size: clamp(#{$min}, 3vw + 0.5rem, #{$max});
+}
+
+/// Truncate text with ellipsis
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// Multi-line clamp
+@mixin line-clamp($lines: 3) {
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// ------------------------------------------------------------
+// Layout helpers
+// ------------------------------------------------------------
+
+/// Centered container
+@mixin container {
+  width: 100%;
+  max-width: $container-max;
+  margin-inline: auto;
+  padding-inline: $container-padding;
+}
+
+/// Flex row
+@mixin flex-row($gap: $space-4, $align: center, $justify: flex-start) {
+  display: flex;
+  flex-direction: row;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+/// Flex column
+@mixin flex-col($gap: $space-4, $align: stretch) {
+  display: flex;
+  flex-direction: column;
+  align-items: $align;
+  gap: $gap;
+}
+
+/// CSS Grid with auto-fill columns
+@mixin auto-grid($min-col: 280px, $gap: $space-6) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(#{$min-col}, 100%), 1fr));
+  gap: $gap;
+}
+
+// ------------------------------------------------------------
+// Visual
+// ------------------------------------------------------------
+
+/// Smooth transition
+@mixin transition($props: all, $duration: $transition-base) {
+  transition: $props $duration;
+}
+
+/// Overlay gradient on images
+@mixin overlay($color: $color-green-900, $opacity: 0.5) {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba($color, $opacity);
+    pointer-events: none;
+  }
+}
+
+/// Aspect ratio box
+@mixin aspect-ratio($w, $h) {
+  aspect-ratio: #{$w} / #{$h};
+  overflow: hidden;
+}

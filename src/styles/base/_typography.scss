@@ -1,0 +1,64 @@
+// ============================================================
+// TYPOGRAPHY BASE – TerraViva
+// ============================================================
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+body {
+  font-family: $font-body;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $color-text;
+  background-color: $color-background;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  line-height: $line-height-heading;
+  font-weight: 600;
+  color: $color-primary-dark;
+}
+
+h1 { font-size: clamp(2.5rem, 5vw + 0.5rem, 5rem);   font-weight: 700; }
+h2 { font-size: clamp(1.75rem, 3.5vw + 0.5rem, 3rem); font-weight: 600; }
+h3 { font-size: clamp(1.375rem, 2vw + 0.5rem, 2rem);  font-weight: 600; }
+h4 { font-size: clamp(1.125rem, 1.5vw + 0.25rem, 1.5rem); }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
+
+p {
+  max-width: 70ch;
+}
+
+strong, b { font-weight: 700; }
+em, i     { font-style: italic; }
+
+small { font-size: 0.875rem; }
+
+// Accessible link styles
+a {
+  color: $color-primary;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  @include focus-visible-ring;
+  @include transition(color);
+
+  &:hover { color: $color-primary-dark; }
+  &:visited { color: $color-green-800; }
+}
+
+// Inline code
+code {
+  font-family: ui-monospace, 'Cascadia Code', monospace;
+  font-size: 0.875em;
+  background-color: $color-neutral-100;
+  padding: 0.1em 0.3em;
+  border-radius: $radius-sm;
+}
+
+blockquote {
+  border-left: 4px solid $color-primary;
+  padding-left: $space-4;
+  color: $color-text-muted;
+  font-style: italic;
+}

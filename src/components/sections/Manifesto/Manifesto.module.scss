@@ -1,0 +1,120 @@
+@use '../../../styles/shared' as *;
+
+.section {
+  background-color: $color-earth-50;
+  padding-block: $space-24 $space-20;
+}
+
+.inner {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: $color-earth-600;
+  margin-bottom: $space-10;
+}
+
+// ─── Quote ───────────────────────────────────────────────────
+.quoteWrap {
+  max-width: 820px;
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.quote {
+  border-left: none;
+  padding: 0;
+  color: $color-green-900;
+
+  p {
+    font-family: $font-heading;
+    font-size: clamp(1.6rem, 2.8vw + 0.5rem, 2.75rem);
+    font-weight: 500;
+    font-style: italic;
+    line-height: 1.35;
+    max-width: none;
+  }
+}
+
+.rule {
+  width: 56px;
+  height: 2px;
+  background-color: $color-sun-400;
+  border: none;
+  margin: $space-12 auto;
+}
+
+// ─── Values ──────────────────────────────────────────────────
+.values {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-10;
+  width: 100%;
+
+  @include respond-from('md') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.value {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease calc(var(--i, 0) * 0.15s),
+    transform 0.7s ease calc(var(--i, 0) * 0.15s);
+}
+
+.valuesVisible .value {
+  opacity: 1;
+  transform: none;
+}
+
+.valueIcon {
+  display: block;
+  font-size: 1.5rem;
+  color: $color-sun-400;
+  margin-bottom: $space-5;
+  font-style: normal;
+  line-height: 1;
+}
+
+.valueTitle {
+  font-family: $font-heading;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $color-green-900;
+  margin-bottom: $space-3;
+}
+
+.valueDesc {
+  font-size: 0.9375rem;
+  color: $color-text-muted;
+  line-height: 1.75;
+  max-width: 30ch;
+  margin-inline: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quoteWrap,
+  .value {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
