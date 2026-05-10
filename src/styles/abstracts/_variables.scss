@@ -26,6 +26,11 @@ $color-sun-400:     #d4a017;
 $color-sun-300:     #e4b830;
 $color-sun-100:     #fdf3d0;
 
+// Editorial palette – c40-inspired
+$color-ink:   #0d1c10;  // very dark green-black (hero / header / dark sections)
+$color-lime:  #a3e635;  // bright editorial accent
+$color-cream: #f4f0e6;  // warm off-white (text on dark, light section bg)
+
 $color-neutral-900: #1a1a1a;
 $color-neutral-800: #2e2e2e;
 $color-neutral-600: #555555;
@@ -95,17 +100,19 @@ $space-32: 8rem;     // 128px
 // ------------------------------------------------------------
 // Breakpoints
 // ------------------------------------------------------------
-$bp-sm:  640px;
-$bp-md:  768px;
-$bp-lg:  1024px;
-$bp-xl:  1280px;
-$bp-2xl: 1536px;
+$bp-xs:  0;
+$bp-sm:  600px;
+$bp-md:  960px;
+$bp-lg:  1280px;
+$bp-xl:  1536px;
+$bp-2xl: 1920px;
+$bp-3xl: 2560px;
 
 // ------------------------------------------------------------
 // Layout
 // ------------------------------------------------------------
-$container-max: 1200px;
-$container-padding: $space-6;
+$container-max:     1920px;
+$container-padding: clamp(1.5rem, 4vw, 4rem); // consistent fluid gutter
 
 // ------------------------------------------------------------
 // Borders & Radius

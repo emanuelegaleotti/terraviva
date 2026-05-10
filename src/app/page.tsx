@@ -5,10 +5,12 @@ import { MarqueeStrip } from '@/components/sections/MarqueeStrip/MarqueeStrip';
 import { Manifesto } from '@/components/sections/Manifesto/Manifesto';
 import { About } from '@/components/sections/About/About';
 import { Seasons } from '@/components/sections/Seasons/Seasons';
+import { JsonLd } from '@/components/JsonLd/JsonLd';
 
 export default function Home() {
   return (
     <>
+      <JsonLd />
       <Header />
       <main id="main-content">
         <Hero />

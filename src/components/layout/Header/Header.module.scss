@@ -1,16 +1,14 @@
 @use '../../../styles/shared' as *;
+@use 'sass:color';
 
-// ─── Header shell ────────────────────────────────────────────
+// ── Header shell – always dark ────────────────────────────────
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  inset-block-start: 0;
+  inset-inline: 0;
   z-index: $z-sticky;
-  transition:
-    background-color $transition-slow,
-    border-color $transition-slow;
-  border-bottom: 1px solid transparent;
+  background-color: $color-ink;
+  border-bottom: 1px solid rgba($color-cream, 0.07);
 }
 
 .inner {
@@ -18,250 +16,168 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
-  gap: $space-8;
+  height: 72px;
 }
 
-// ─── Logo ────────────────────────────────────────────────────
+// ── Logo ─────────────────────────────────────────────────────
 .logo {
-  font-family: $font-heading;
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: $color-white;
+  display: flex;
+  align-items: center;
+  gap: $space-3;
   text-decoration: none;
   flex-shrink: 0;
-  transition: color $transition-base;
-  @include focus-visible-ring($color-sun-300);
+  @include focus-visible-ring($color-lime);
 
-  &:visited {
-    color: $color-white;
+  span:first-child {
+    font-family: $font-heading;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: $color-cream;
+    line-height: 1;
+  }
+
+  span:last-child {
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: $color-lime;
+    border: 1px solid rgba($color-lime, 0.4);
+    padding: 3px 6px;
+    line-height: 1;
   }
 }
 
-.scrolled .logo {
-  color: $color-green-900;
-
-  &:visited {
-    color: $color-green-900;
-  }
-}
-
-// ─── Desktop nav ─────────────────────────────────────────────
+// ── Desktop nav ───────────────────────────────────────────────
 .nav {
   display: none;
 
   @include respond-from('md') {
     display: flex;
     align-items: center;
-    // Push nav to the right
-    margin-left: auto;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    gap: $space-10;
+    list-style: none;
+  }
+
+  li a {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba($color-cream, 0.42);
+    transition: color $transition-base;
+    @include focus-visible-ring($color-lime);
+
+    &:hover { color: $color-cream; }
+  }
+
+  li:last-child a {
+    color: $color-lime;
+
+    &:hover { color: color.mix($color-lime, $color-white, 80%); }
   }
 }
 
-.navList {
-  display: flex;
-  align-items: center;
-  gap: $space-10;
-  list-style: none;
-}
-
-.navLink {
-  position: relative;
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  color: rgba($color-white, 0.85);
-  transition: color $transition-base;
-  @include focus-visible-ring($color-sun-300);
-
-  // Minimal underline that slides in from left
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background-color: currentColor;
-    transition: width $transition-base;
-  }
-
-  &:hover {
-    color: $color-white;
-
-    &::after {
-      width: 100%;
-    }
-  }
-
-  &:visited {
-    color: rgba($color-white, 0.85);
-  }
-
-  // Last link (Contatti) gets a subtle distinction
-  &:last-child {
-    margin-left: $space-6;
-    padding: $space-2 $space-4;
-    border: 1px solid rgba($color-white, 0.3);
-    border-radius: 2px;
-
-    &::after {
-      display: none;
-    }
-
-    &:hover {
-      border-color: rgba($color-white, 0.7);
-    }
-  }
-}
-
-.scrolled .navLink {
-  color: rgba($color-green-900, 0.72);
-
-  &:hover {
-    color: $color-green-900;
-  }
-
-  &:visited {
-    color: rgba($color-green-900, 0.72);
-  }
-
-  &:last-child {
-    border-color: rgba($color-green-900, 0.25);
-
-    &:hover {
-      border-color: $color-green-700;
-      color: $color-green-700;
-    }
-  }
-}
-
-// ─── Scrolled state ──────────────────────────────────────────
-.scrolled {
-  background-color: rgba($color-white, 0.97);
-  border-bottom-color: rgba($color-neutral-200, 0.8);
-
-  @supports (backdrop-filter: blur(12px)) {
-    background-color: rgba($color-white, 0.82);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-}
-
-// ─── Hamburger ───────────────────────────────────────────────
-.hamburger {
-  position: relative;
-  z-index: calc(#{$z-overlay} + 10);
+// ── Burger (2-line asymmetric) ────────────────────────────────
+.burger {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   justify-content: center;
-  align-items: center;
-  gap: 5px;
+  gap: 7px;
   width: 44px;
   height: 44px;
   padding: $space-3;
   background: none;
   border: none;
   cursor: pointer;
-  color: $color-white;
-  margin-left: auto;
-  @include focus-visible-ring($color-sun-300);
+  color: $color-cream;
+  position: relative;
+  z-index: calc(#{$z-overlay} + 10);
+  @include focus-visible-ring($color-lime);
 
   @include respond-from('md') {
     display: none;
   }
 }
 
-.scrolled .hamburger {
-  color: $color-green-900;
-}
-
-.bar {
+.burgerLine {
   display: block;
-  width: 20px;
-  height: 1.5px;
+  height: 1px;
   background-color: currentColor;
-  border-radius: 0;
   transition:
     transform $transition-base,
-    opacity $transition-base;
-  transform-origin: center;
+    width $transition-base;
+  transform-origin: right center;
+
+  &:nth-child(1) { width: 20px; }
+  &:nth-child(2) { width: 12px; }
 }
 
-.hamburgerOpen .bar:nth-child(1) {
-  transform: translateY(6.5px) rotate(45deg);
+.burgerOpen {
+  .burgerLine:nth-child(1) {
+    width: 20px;
+    transform: translateY(4px) rotate(-45deg);
+  }
+
+  .burgerLine:nth-child(2) {
+    width: 20px;
+    transform: translateY(-4px) rotate(45deg);
+  }
 }
 
-.hamburgerOpen .bar:nth-child(2) {
-  opacity: 0;
-  transform: scaleX(0);
-}
-
-.hamburgerOpen .bar:nth-child(3) {
-  transform: translateY(-6.5px) rotate(-45deg);
-}
-
-// ─── Mobile nav overlay ──────────────────────────────────────
+// ── Mobile overlay ────────────────────────────────────────────
 .navOpen {
   display: flex;
   position: fixed;
   inset: 0;
-  background-color: $color-green-900;
+  background-color: $color-ink;
   z-index: $z-overlay;
-  align-items: center;
-  justify-content: center;
-  animation: navFadeIn 0.25s ease;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: $space-32 clamp(1.5rem, 6vw, 4rem) clamp(3rem, 8vw, 5rem);
+  animation: menuReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 
   .navList {
     flex-direction: column;
-    gap: $space-8;
-    text-align: center;
+    align-items: flex-start;
+    gap: $space-1;
   }
 
   .navLink {
     font-family: $font-heading;
-    font-size: clamp(2.25rem, 6vw + 1rem, 3.5rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: rgba($color-white, 0.85);
-
-    &::after {
-      display: none;
-    }
+    font-size: clamp(2.5rem, 9vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    text-transform: none;
+    color: rgba($color-cream, 0.55);
+    line-height: 1.15;
 
     &:hover {
-      color: $color-sun-300;
+      color: $color-cream;
     }
 
-    // Override the Contatti "bordered" style on mobile
     &:last-child {
-      margin-left: 0;
-      padding: 0;
-      border: none;
-
-      &:hover {
-        border-color: transparent;
-      }
+      color: $color-lime;
     }
   }
 }
 
-.backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: calc(#{$z-overlay} - 1);
-}
-
-@keyframes navFadeIn {
+@keyframes menuReveal {
   from {
+    clip-path: inset(0 0 100% 0);
     opacity: 0;
-    transform: translateY(-8px);
   }
   to {
+    clip-path: inset(0 0 0% 0);
     opacity: 1;
-    transform: none;
   }
 }
 

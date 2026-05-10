@@ -2,44 +2,36 @@
 
 .strip {
   overflow: hidden;
-  background-color: $color-earth-800;
-  padding-block: $space-4;
-  // Slight negative margin to overlap the hero clip-path
-  margin-top: -2px;
+  background-color: $color-lime;
+  padding-block: $space-3;
 }
 
 .track {
   display: flex;
   white-space: nowrap;
-  animation: marquee 30s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 .item {
   flex-shrink: 0;
   padding-inline: $space-3;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgba($color-earth-100, 0.75);
+  color: $color-ink;
 }
 
 .dot {
-  color: $color-sun-300;
+  color: rgba($color-ink, 0.35);
   margin-left: $space-3;
 }
 
 @keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .track {
-    animation: none;
-  }
+  .track { animation: none; }
 }

@@ -1,54 +1,53 @@
 'use client';
 
-import { useState } from 'react';
 import { useInView } from '@/hooks/useInView';
 import styles from './Seasons.module.scss';
 
-type SeasonKey = 'primavera' | 'estate' | 'autunno' | 'inverno';
-
 interface SeasonData {
+  num: string;
   label: string;
-  tagline: string;
+  months: string;
   products: string[];
 }
 
-const seasons: Record<SeasonKey, SeasonData> = {
-  primavera: {
+const seasons: SeasonData[] = [
+  {
+    num: '01',
     label: 'Primavera',
-    tagline: 'Il risveglio della terra — marzo · aprile · maggio',
-    products: ['Asparagi', 'Piselli', 'Spinaci', 'Lattuga', 'Ravanelli', 'Fave', 'Fragole', 'Finocchi'],
+    months: 'Mar · Apr · Mag',
+    products: ['Asparagi', 'Piselli', 'Spinaci', 'Lattuga', 'Ravanelli', 'Fave', 'Fragole'],
   },
-  estate: {
+  {
+    num: '02',
     label: 'Estate',
-    tagline: 'Il calore del sole — giugno · luglio · agosto',
-    products: ['Pomodori', 'Zucchine', 'Melanzane', 'Peperoni', 'Fagiolini', 'Cetrioli', 'Basilico', 'Cocomero'],
+    months: 'Giu · Lug · Ago',
+    products: ['Pomodori', 'Zucchine', 'Melanzane', 'Peperoni', 'Cetrioli', 'Basilico', 'Cocomero'],
   },
-  autunno: {
+  {
+    num: '03',
     label: 'Autunno',
-    tagline: 'La ricchezza della raccolta — settembre · ottobre · novembre',
-    products: ['Zucca', 'Cavolo', 'Broccoli', 'Carote', 'Barbabietola', 'Radicchio', 'Mele', 'Pere'],
+    months: 'Set · Ott · Nov',
+    products: ['Zucca', 'Cavolo', 'Broccoli', 'Carote', 'Radicchio', 'Mele', 'Pere'],
   },
-  inverno: {
+  {
+    num: '04',
     label: 'Inverno',
-    tagline: 'La lentezza e la profondità — dicembre · gennaio · febbraio',
-    products: ['Cavolo nero', 'Cime di rapa', 'Finocchio', 'Porri', 'Verza', 'Topinambur', 'Arance', 'Clementine'],
+    months: 'Dic · Gen · Feb',
+    products: ['Cavolo nero', 'Cime di rapa', 'Finocchio', 'Porri', 'Verza', 'Topinambur'],
   },
-};
+];
 
-function getCurrentSeason(): SeasonKey {
-  const month = new Date().getMonth() + 1;
-  if (month >= 3 && month <= 5) return 'primavera';
-  if (month >= 6 && month <= 8) return 'estate';
-  if (month >= 9 && month <= 11) return 'autunno';
-  return 'inverno';
+function getCurrentSeasonIndex(): number {
+  const m = new Date().getMonth() + 1;
+  if (m >= 3 && m <= 5) return 0;
+  if (m >= 6 && m <= 8) return 1;
+  if (m >= 9 && m <= 11) return 2;
+  return 3;
 }
 
-const seasonKeys = Object.keys(seasons) as SeasonKey[];
-
 export function Seasons() {
-  const [active, setActive] = useState<SeasonKey>(getCurrentSeason());
   const { ref, isInView } = useInView<HTMLElement>();
-  const current = seasons[active];
+  const currentIdx = getCurrentSeasonIndex();
 
   return (
     <section
@@ -57,55 +56,40 @@ export function Seasons() {
       id="stagioni"
       aria-labelledby="seasons-title"
     >
-      <div className={styles.inner}>
-        {/* Header */}
-        <header className={styles.header}>
-          <p className={styles.eyebrow}>Le Stagioni in Tavola</p>
+      {/* Section header */}
+      <div className={styles.sectionHeader}>
+        <div className={styles.headerInner}>
+          <span className={styles.eyebrow}>Le Stagioni in Tavola</span>
           <h2 className={styles.title} id="seasons-title">
-            La natura decide<br />
-            quando è il momento giusto.
+            La natura decide<br />quando è il momento.
           </h2>
-          <p className={styles.subtitle}>Noi raccogliamo. Voi assaporate.</p>
-        </header>
-
-        {/* Season tabs */}
-        <div role="tablist" aria-label="Scegli la stagione" className={styles.tabs}>
-          {seasonKeys.map((key) => (
-            <button
-              key={key}
-              role="tab"
-              id={`tab-${key}`}
-              aria-selected={active === key}
-              aria-controls={`panel-${key}`}
-              className={`${styles.tab} ${active === key ? styles.tabActive : ''} ${styles[key]}`}
-              onClick={() => setActive(key)}
-            >
-              {seasons[key].label}
-            </button>
-          ))}
         </div>
+      </div>
 
-        {/* Season panel */}
-        <div
-          key={active}
-          role="tabpanel"
-          id={`panel-${active}`}
-          aria-labelledby={`tab-${active}`}
-          className={styles.panel}
-        >
-          <p className={styles.tagline}>{current.tagline}</p>
-          <ul
-            className={styles.products}
-            role="list"
-            aria-label={`Prodotti di ${current.label}`}
+      {/* Grid of season cards */}
+      <div className={styles.grid} role="list" aria-label="Stagioni e prodotti">
+        {seasons.map((season, i) => (
+          <article
+            key={season.num}
+            className={`${styles.card} ${i === currentIdx ? styles.cardCurrent : ''}`}
+            role="listitem"
+            style={{ '--i': i } as React.CSSProperties}
           >
-            {current.products.map((product) => (
-              <li key={product} className={styles.product}>
-                {product}
-              </li>
-            ))}
-          </ul>
-        </div>
+            <div className={styles.meta}>
+              <span aria-hidden="true">{season.num}</span>
+              {i === currentIdx && (
+                <span className={styles.now}>Ora</span>
+              )}
+            </div>
+            <h3>{season.label}</h3>
+            <small>{season.months}</small>
+            <ul role="list" aria-label={`Prodotti di ${season.label}`}>
+              {season.products.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
     </section>
   );

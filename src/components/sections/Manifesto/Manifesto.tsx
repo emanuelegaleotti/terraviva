@@ -3,69 +3,57 @@
 import { useInView } from '@/hooks/useInView';
 import styles from './Manifesto.module.scss';
 
-const values = [
+const principles = [
   {
-    icon: '○',
+    num: '01',
     title: 'Biologico al 100%',
     desc: 'Nessun pesticida, nessun compromesso. Solo terra sana e pratiche rispettose dei cicli naturali.',
   },
   {
-    icon: '◇',
+    num: '02',
     title: 'Stagionale per natura',
     desc: 'Ogni prodotto nasce nel momento giusto, quando la terra lo permette e la stagione lo chiede.',
   },
   {
-    icon: '△',
-    title: 'Azienda di famiglia',
+    num: '03',
+    title: 'Famiglia e tradizione',
     desc: 'Tre generazioni di passione per la terra, i suoi ritmi e i frutti che ogni stagione porta con sé.',
   },
 ];
 
 export function Manifesto() {
-  const { ref: quoteRef, isInView: quoteVisible } = useInView<HTMLDivElement>();
-  const { ref: valuesRef, isInView: valuesVisible } = useInView<HTMLDivElement>();
+  const { ref: headRef, isInView: headVisible } = useInView<HTMLDivElement>();
+  const { ref: cardsRef, isInView: cardsVisible } = useInView<HTMLDivElement>();
 
   return (
-    <section
-      className={styles.section}
-      aria-labelledby="manifesto-heading"
-    >
+    <section className={styles.section} aria-labelledby="manifesto-title">
       <div className={styles.inner}>
-        {/* Eyebrow */}
-        <p className={styles.eyebrow} id="manifesto-heading" role="heading" aria-level={2}>
-          Il Nostro Manifesto
-        </p>
-
-        {/* Quote */}
+        {/* Section header */}
         <div
-          ref={quoteRef}
-          className={`${styles.quoteWrap} ${quoteVisible ? styles.visible : ''}`}
+          ref={headRef}
+          className={`${styles.sectionHead} ${headVisible ? styles.headVisible : ''}`}
         >
-          <blockquote className={styles.quote}>
-            <p>
-              &ldquo;Crediamo in una terra rispettata, in prodotti onesti e in stagioni
-              che scandiscono il ritmo della vita.&rdquo;
-            </p>
-          </blockquote>
-          <hr className={styles.rule} aria-hidden="true" />
+          <span className={styles.eyebrow}>I Nostri Principi</span>
+          <h2 className={styles.title} id="manifesto-title">
+            Un&apos;agricoltura<br />
+            che rispetta la vita.
+          </h2>
         </div>
 
-        {/* Values */}
+        {/* Numbered cards */}
         <div
-          ref={valuesRef}
-          className={`${styles.values} ${valuesVisible ? styles.valuesVisible : ''}`}
+          ref={cardsRef}
+          className={`${styles.cards} ${cardsVisible ? styles.cardsVisible : ''}`}
         >
-          {values.map((v, i) => (
+          {principles.map((p, i) => (
             <article
-              key={v.title}
-              className={styles.value}
+              key={p.num}
+              className={styles.card}
               style={{ '--i': i } as React.CSSProperties}
             >
-              <span className={styles.valueIcon} aria-hidden="true">
-                {v.icon}
-              </span>
-              <h3 className={styles.valueTitle}>{v.title}</h3>
-              <p className={styles.valueDesc}>{v.desc}</p>
+              <span aria-hidden="true">{p.num}</span>
+              <h3>{p.title}</h3>
+              <p>{p.desc}</p>
             </article>
           ))}
         </div>

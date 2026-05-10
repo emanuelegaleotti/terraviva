@@ -1,8 +1,8 @@
 @use '../../../styles/shared' as *;
 
 .footer {
-  background-color: $color-green-900;
-  color: $color-green-100;
+  background-color: $color-ink;
+  color: $color-cream;
 }
 
 .inner {
@@ -16,7 +16,7 @@
   grid-template-columns: 1fr;
   gap: $space-12;
   padding-bottom: $space-12;
-  border-bottom: 1px solid rgba($color-green-600, 0.25);
+  border-bottom: 1px solid rgba($color-cream, 0.08);
 
   @include respond-from('md') {
     grid-template-columns: 2fr 1fr 1fr 1fr;
@@ -26,9 +26,6 @@
 }
 
 // ─── Brand ───────────────────────────────────────────────────
-.brand {
-}
-
 .logo {
   display: flex;
   flex-direction: column;
@@ -37,20 +34,20 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   line-height: 0.85;
-  color: $color-white;
+  color: $color-cream;
   margin-bottom: $space-4;
 }
 
 .tagline {
-  font-size: 0.775rem;
+  font-size: 0.72rem;
   letter-spacing: 0.15em;
-  color: rgba($color-green-200, 0.55);
+  color: rgba($color-cream, 0.3);
   margin-bottom: $space-2;
 }
 
 .location {
   font-size: 0.875rem;
-  color: rgba($color-green-200, 0.4);
+  color: rgba($color-cream, 0.25);
 }
 
 // ─── Generic column ──────────────────────────────────────────
@@ -59,12 +56,13 @@
 }
 
 .colTitle {
-  font-size: 0.625rem;
+  font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: rgba($color-green-400, 0.6);
+  color: $color-lime;
   margin-bottom: $space-5;
+  opacity: 0.7;
 }
 
 .list {
@@ -72,22 +70,17 @@
   flex-direction: column;
   gap: $space-3;
   font-size: 0.9rem;
-  color: rgba($color-green-100, 0.65);
+  color: rgba($color-cream, 0.4);
 }
 
 .link {
-  color: rgba($color-green-100, 0.65);
+  color: rgba($color-cream, 0.4);
   text-decoration: none;
   @include transition(color);
-  @include focus-visible-ring($color-sun-300);
+  @include focus-visible-ring($color-lime);
 
-  &:hover {
-    color: $color-white;
-  }
-
-  &:visited {
-    color: rgba($color-green-100, 0.65);
-  }
+  &:hover { color: $color-cream; }
+  &:visited { color: rgba($color-cream, 0.4); }
 }
 
 // ─── Social ──────────────────────────────────────────────────
@@ -102,18 +95,13 @@
   align-items: center;
   gap: $space-2;
   font-size: 0.9rem;
-  color: rgba($color-green-100, 0.65);
+  color: rgba($color-cream, 0.4);
   text-decoration: none;
   @include transition(color);
-  @include focus-visible-ring($color-sun-300);
+  @include focus-visible-ring($color-lime);
 
-  &:hover {
-    color: $color-sun-300;
-  }
-
-  &:visited {
-    color: rgba($color-green-100, 0.65);
-  }
+  &:hover { color: $color-lime; }
+  &:visited { color: rgba($color-cream, 0.4); }
 }
 
 // ─── Bottom bar ──────────────────────────────────────────────
@@ -126,7 +114,7 @@
 }
 
 .copy {
-  font-size: 0.775rem;
-  color: rgba($color-green-400, 0.4);
+  font-size: 0.72rem;
+  color: rgba($color-cream, 0.2);
   max-width: none;
 }

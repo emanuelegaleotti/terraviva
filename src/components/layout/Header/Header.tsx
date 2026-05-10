@@ -2,21 +2,18 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { useScrollY } from '@/hooks/useScrollY';
 import styles from './Header.module.scss';
 
 const navLinks = [
   { href: '#chi-siamo', label: 'Chi Siamo' },
-  { href: '#prodotti', label: 'I Prodotti' },
+  { href: '#stagioni', label: 'I Prodotti' },
   { href: '#stagioni', label: 'Le Stagioni' },
   { href: '#contatti', label: 'Contatti' },
 ];
 
 export function Header() {
-  const scrollY = useScrollY();
   const [menuOpen, setMenuOpen] = useState(false);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
-  const isScrolled = scrollY > 80;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -29,20 +26,16 @@ export function Header() {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     if (menuOpen) firstLinkRef.current?.focus();
-    return () => {
-      document.body.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
   return (
-    <header
-      className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}
-      role="banner"
-    >
+    <header className={styles.header} role="banner">
       <div className={styles.inner}>
         {/* Logo */}
-        <Link href="/" className={styles.logo} aria-label="TerraViva – Home">
-          TerraViva
+        <Link href="/" className={styles.logo} aria-label="TerraViva – Torna alla home">
+          <span className={styles.logoName}>TerraViva</span>
+          <span className={styles.logoBadge} aria-hidden="true">Bio</span>
         </Link>
 
         {/* Desktop nav */}
@@ -53,7 +46,7 @@ export function Header() {
         >
           <ul className={styles.navList} role="list">
             {navLinks.map((link, i) => (
-              <li key={link.href}>
+              <li key={link.label}>
                 <a
                   href={link.href}
                   className={styles.navLink}
@@ -67,28 +60,18 @@ export function Header() {
           </ul>
         </nav>
 
-        {/* Hamburger */}
+        {/* Burger */}
         <button
-          className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ''}`}
+          className={`${styles.burger} ${menuOpen ? styles.burgerOpen : ''}`}
           aria-expanded={menuOpen}
           aria-controls="main-nav"
           aria-label={menuOpen ? 'Chiudi il menu' : 'Apri il menu'}
-          onClick={() => setMenuOpen((prev) => !prev)}
+          onClick={() => setMenuOpen((p) => !p)}
         >
-          <span className={styles.bar} aria-hidden="true" />
-          <span className={styles.bar} aria-hidden="true" />
-          <span className={styles.bar} aria-hidden="true" />
+          <span className={styles.burgerLine} aria-hidden="true" />
+          <span className={styles.burgerLine} aria-hidden="true" />
         </button>
       </div>
-
-      {/* Mobile backdrop */}
-      {menuOpen && (
-        <div
-          className={styles.backdrop}
-          aria-hidden="true"
-          onClick={() => setMenuOpen(false)}
-        />
-      )}
     </header>
   );
 }

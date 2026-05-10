@@ -11,22 +11,26 @@
 /// @param {String|Number} $bp - breakpoint name or px value
 @mixin respond-from($bp) {
   $value: $bp;
-  @if $bp == 'sm'  { $value: $bp-sm; }
+  @if      $bp == 'xs'  { $value: $bp-xs; }
+  @else if $bp == 'sm'  { $value: $bp-sm; }
   @else if $bp == 'md'  { $value: $bp-md; }
   @else if $bp == 'lg'  { $value: $bp-lg; }
   @else if $bp == 'xl'  { $value: $bp-xl; }
   @else if $bp == '2xl' { $value: $bp-2xl; }
+  @else if $bp == '3xl' { $value: $bp-3xl; }
   @media (min-width: #{$value}) { @content; }
 }
 
 /// Max-width media query
 @mixin respond-until($bp) {
   $value: $bp;
-  @if $bp == 'sm'  { $value: $bp-sm; }
+  @if      $bp == 'xs'  { $value: $bp-xs; }
+  @else if $bp == 'sm'  { $value: $bp-sm; }
   @else if $bp == 'md'  { $value: $bp-md; }
   @else if $bp == 'lg'  { $value: $bp-lg; }
   @else if $bp == 'xl'  { $value: $bp-xl; }
   @else if $bp == '2xl' { $value: $bp-2xl; }
+  @else if $bp == '3xl' { $value: $bp-3xl; }
   @media (max-width: calc(#{$value} - 1px)) { @content; }
 }
 
