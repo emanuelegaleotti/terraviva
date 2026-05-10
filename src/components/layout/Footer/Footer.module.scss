@@ -53,34 +53,35 @@
 // ─── Generic column ──────────────────────────────────────────
 .col {
   font-style: normal;
-}
 
-.colTitle {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: $color-lime;
-  margin-bottom: $space-5;
-  opacity: 0.7;
-}
+  // Column eyebrow title
+  > p:first-child {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: $color-lime;
+    margin-bottom: $space-5;
+    opacity: 0.7;
+  }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: $space-3;
-  font-size: 0.9rem;
-  color: rgba($color-cream, 0.4);
-}
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    font-size: 0.9rem;
+    color: rgba($color-cream, 0.4);
+  }
 
-.link {
-  color: rgba($color-cream, 0.4);
-  text-decoration: none;
-  @include transition(color);
-  @include focus-visible-ring($color-lime);
+  a {
+    color: rgba($color-cream, 0.4);
+    text-decoration: none;
+    @include transition(color);
+    @include focus-visible-ring($color-lime);
 
-  &:hover { color: $color-cream; }
-  &:visited { color: rgba($color-cream, 0.4); }
+    &:hover { color: $color-cream; }
+    &:visited { color: rgba($color-cream, 0.4); }
+  }
 }
 
 // ─── Social ──────────────────────────────────────────────────
@@ -88,20 +89,20 @@
   display: flex;
   flex-direction: column;
   gap: $space-3;
-}
 
-.socialLink {
-  display: inline-flex;
-  align-items: center;
-  gap: $space-2;
-  font-size: 0.9rem;
-  color: rgba($color-cream, 0.4);
-  text-decoration: none;
-  @include transition(color);
-  @include focus-visible-ring($color-lime);
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    font-size: 0.9rem;
+    color: rgba($color-cream, 0.4);
+    text-decoration: none;
+    @include transition(color);
+    @include focus-visible-ring($color-lime);
 
-  &:hover { color: $color-lime; }
-  &:visited { color: rgba($color-cream, 0.4); }
+    &:hover { color: $color-lime; }
+    &:visited { color: rgba($color-cream, 0.4); }
+  }
 }
 
 // ─── Bottom bar ──────────────────────────────────────────────
@@ -111,10 +112,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: $space-2;
-}
 
-.copy {
-  font-size: 0.72rem;
-  color: rgba($color-cream, 0.2);
-  max-width: none;
+  p {
+    font-size: 0.72rem;
+    color: rgba($color-cream, 0.2);
+    max-width: none;
+  }
 }

@@ -106,28 +106,28 @@
   @include respond-from('md') {
     display: none;
   }
-}
 
-.burgerLine {
-  display: block;
-  height: 1px;
-  background-color: currentColor;
-  transition:
-    transform $transition-base,
-    width $transition-base;
-  transform-origin: right center;
+  span {
+    display: block;
+    height: 1px;
+    background-color: currentColor;
+    transition:
+      transform $transition-base,
+      width $transition-base;
+    transform-origin: right center;
 
-  &:nth-child(1) { width: 20px; }
-  &:nth-child(2) { width: 12px; }
+    &:nth-child(1) { width: 20px; }
+    &:nth-child(2) { width: 12px; }
+  }
 }
 
 .burgerOpen {
-  .burgerLine:nth-child(1) {
+  span:nth-child(1) {
     width: 20px;
     transform: translateY(4px) rotate(-45deg);
   }
 
-  .burgerLine:nth-child(2) {
+  span:nth-child(2) {
     width: 20px;
     transform: translateY(-4px) rotate(45deg);
   }
@@ -145,13 +145,13 @@
   padding: $space-32 clamp(1.5rem, 6vw, 4rem) clamp(3rem, 8vw, 5rem);
   animation: menuReveal 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 
-  .navList {
+  ul {
     flex-direction: column;
     align-items: flex-start;
     gap: $space-1;
   }
 
-  .navLink {
+  li a {
     font-family: $font-heading;
     font-size: clamp(2.5rem, 9vw, 5.5rem);
     font-weight: 700;
@@ -160,14 +160,10 @@
     color: rgba($color-cream, 0.55);
     line-height: 1.15;
 
-    &:hover {
-      color: $color-cream;
-    }
-
-    &:last-child {
-      color: $color-lime;
-    }
+    &:hover { color: $color-cream; }
   }
+
+  li:last-child a { color: $color-lime; }
 }
 
 @keyframes menuReveal {

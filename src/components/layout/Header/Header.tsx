@@ -34,8 +34,8 @@ export function Header() {
       <div className={styles.inner}>
         {/* Logo */}
         <Link href="/" className={styles.logo} aria-label="TerraViva – Torna alla home">
-          <span className={styles.logoName}>TerraViva</span>
-          <span className={styles.logoBadge} aria-hidden="true">Bio</span>
+          <span>TerraViva</span>
+          <span aria-hidden="true">Bio</span>
         </Link>
 
         {/* Desktop nav */}
@@ -44,12 +44,11 @@ export function Header() {
           className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}
           aria-label="Navigazione principale"
         >
-          <ul className={styles.navList} role="list">
+          <ul role="list">
             {navLinks.map((link, i) => (
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className={styles.navLink}
                   onClick={() => setMenuOpen(false)}
                   ref={i === 0 ? firstLinkRef : undefined}
                 >
@@ -68,8 +67,8 @@ export function Header() {
           aria-label={menuOpen ? 'Chiudi il menu' : 'Apri il menu'}
           onClick={() => setMenuOpen((p) => !p)}
         >
-          <span className={styles.burgerLine} aria-hidden="true" />
-          <span className={styles.burgerLine} aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
         </button>
       </div>
     </header>
