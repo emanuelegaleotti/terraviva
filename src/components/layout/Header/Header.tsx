@@ -2,16 +2,35 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styles from './Header.module.scss';
 
-const navLinks = [
-  { href: '#chi-siamo', label: 'Chi Siamo' },
-  { href: '#stagioni', label: 'I Prodotti' },
-  { href: '#stagioni', label: 'Le Stagioni' },
-  { href: '#contatti', label: 'Contatti' },
-];
+const navByPath: Record<string, { href: string; label: string }[]> = {
+  '/': [
+    { href: '#chi-siamo',  label: 'Chi Siamo' },
+    { href: '#stagioni',   label: 'I Prodotti' },
+    { href: '#stagioni',   label: 'Le Stagioni' },
+    { href: '/olio',       label: "L'Olio" },
+    { href: '/contatti',   label: 'Contatti' },
+  ],
+  '/olio': [
+    { href: '/',           label: '← Home' },
+    { href: '#storia',     label: 'La Storia' },
+    { href: '#cultivar',   label: 'Le Cultivar' },
+    { href: '#linea',      label: 'La Linea' },
+    { href: '#progetto',   label: 'Il Progetto' },
+  ],
+  '/contatti': [
+    { href: '/',           label: '← Home' },
+    { href: '#orari-title', label: 'Orari' },
+    { href: '/olio',       label: "L'Olio" },
+  ],
+};
 
 export function Header() {
+  const pathname = usePathname();
+  const navLinks = navByPath[pathname] ?? navByPath['/'];
+
   const [menuOpen, setMenuOpen] = useState(false);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
@@ -38,7 +57,7 @@ export function Header() {
           <span aria-hidden="true">Bio</span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Nav */}
         <nav
           id="main-nav"
           className={`${styles.nav} ${menuOpen ? styles.navOpen : ''}`}
@@ -47,13 +66,22 @@ export function Header() {
           <ul role="list">
             {navLinks.map((link, i) => (
               <li key={link.label}>
-                <a
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  ref={i === 0 ? firstLinkRef : undefined}
-                >
-                  {link.label}
-                </a>
+                {link.href.startsWith('/') ? (
+                  <Link
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={link.href}
+                    onClick={() => setMenuOpen(false)}
+                    ref={i === 0 ? firstLinkRef : undefined}
+                  >
+                    {link.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>

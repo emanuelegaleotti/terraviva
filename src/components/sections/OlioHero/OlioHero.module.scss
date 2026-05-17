@@ -1,0 +1,271 @@
+@use '../../../styles/shared' as *;
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  background-color: $color-ink;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  padding-top: 72px;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -25% 0;
+    background:
+      radial-gradient(ellipse 65% 55% at 80% 30%, rgba($color-green-700, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 45% at 10% 70%, rgba($color-earth-600, 0.1) 0%, transparent 55%);
+    z-index: 1;
+    pointer-events: none;
+  }
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  z-index: 2;
+  pointer-events: none;
+}
+
+// ── Top strip ─────────────────────────────────────────────────
+.topStrip {
+  @include container;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: $space-5;
+  padding-block: $space-5;
+  border-bottom: 1px solid rgba($color-cream, 0.07);
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards 0.1s;
+}
+
+.backLink {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba($color-cream, 0.55);
+  text-decoration: none;
+  transition: color $transition-base;
+  @include focus-visible-ring($color-cream);
+
+  &:hover { color: $color-cream; }
+}
+
+.divider {
+  width: 1px;
+  height: 0.7rem;
+  background-color: rgba($color-cream, 0.14);
+  flex-shrink: 0;
+}
+
+.chip {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba($color-cream, 0.36);
+}
+
+// ── Fill ──────────────────────────────────────────────────────
+.fill {
+  position: relative;
+  z-index: 3;
+}
+
+// ── Headline block ────────────────────────────────────────────
+.headlineBlock {
+  @include container;
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: $space-10;
+  padding-block: 0 $space-12;
+
+  @include respond-from('lg') {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: $space-16;
+    padding-bottom: $space-16;
+  }
+}
+
+.headline {
+  font-family: $font-heading;
+  font-size: clamp(3.5rem, 14vw + 0.25rem, 16rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: $color-cream;
+  flex-shrink: 0;
+}
+
+.hLine {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.055em;
+
+  > span {
+    display: block;
+    opacity: 0;
+    animation: slideUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  &:nth-child(1) > span { animation-delay: 0.2s; }
+  &:nth-child(2) > span { animation-delay: 0.38s; }
+  &:nth-child(3) > span { animation-delay: 0.55s; }
+}
+
+.hLineAccent > span {
+  color: $color-lime;
+}
+
+// ── Side ──────────────────────────────────────────────────────
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: $space-8;
+  max-width: 460px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards 0.9s;
+
+  @include respond-from('lg') {
+    padding-bottom: 0.08em;
+  }
+}
+
+.sub {
+  font-size: 1rem;
+  color: rgba($color-cream, 0.55);
+  line-height: 1.8;
+
+  strong {
+    color: $color-cream;
+    font-weight: 600;
+  }
+}
+
+// ── CTAs ──────────────────────────────────────────────────────
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.ctaPrimary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-6;
+  padding: $space-4 $space-6;
+  background-color: $color-lime;
+  color: $color-ink;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 2px solid $color-lime;
+  transition: background-color $transition-base, color $transition-base;
+  @include focus-visible-ring($color-lime);
+
+  &:hover {
+    background-color: transparent;
+    color: $color-lime;
+  }
+  &:visited { color: $color-ink; }
+}
+
+.ctaGhost {
+  display: flex;
+  align-items: center;
+  padding: $space-4 $space-6;
+  border: 1px solid rgba($color-cream, 0.18);
+  color: rgba($color-cream, 0.5);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: border-color $transition-base, color $transition-base;
+  @include focus-visible-ring($color-cream);
+
+  &:hover {
+    border-color: rgba($color-cream, 0.5);
+    color: $color-cream;
+  }
+  &:visited { color: rgba($color-cream, 0.5); }
+}
+
+// ── Stats bar ─────────────────────────────────────────────────
+.statsBar {
+  @include container;
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid rgba($color-cream, 0.08);
+  padding-block: 0;
+
+  @include respond-from('md') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: $space-6 $space-5;
+  border-right: 1px solid rgba($color-cream, 0.06);
+
+  &:first-child { padding-left: 0; }
+
+  &:nth-child(2) {
+    @include respond-until('md') { border-right: none; }
+  }
+
+  &:last-child { border-right: none; padding-right: 0; }
+
+  span:first-child {
+    font-family: $font-heading;
+    font-size: clamp(1.75rem, 3.5vw + 0.25rem, 3rem);
+    font-weight: 700;
+    color: $color-lime;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  span:last-child {
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba($color-cream, 0.32);
+  }
+}
+
+// ── Keyframes ─────────────────────────────────────────────────
+@keyframes slideUp {
+  from { transform: translateY(110%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hLine > span,
+  .topStrip,
+  .side {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}

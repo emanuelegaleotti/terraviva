@@ -1,0 +1,262 @@
+@use '../../../styles/shared' as *;
+
+// Accent colors per olio
+$accent-earth: $color-earth-400;
+$accent-lime:  $color-lime;
+$accent-green: $color-green-400;
+
+.section {
+  background-color: $color-ink;
+}
+
+// ── Section header ────────────────────────────────────────────
+.sectionTop {
+  border-bottom: 1px solid rgba($color-cream, 0.08);
+  padding-top: $space-16;
+}
+
+.topInner {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $space-8;
+  padding-bottom: $space-12;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+
+  &.topVisible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @include respond-from('md') {
+    grid-template-columns: auto 1fr;
+    align-items: flex-end;
+    gap: $space-12;
+  }
+}
+
+.topLeft {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+
+  > span {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: $color-lime;
+  }
+
+  > p {
+    font-family: $font-heading;
+    font-size: clamp(5rem, 12vw + 1rem, 11rem);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    color: rgba($color-cream, 0.05);
+    margin: 0;
+    user-select: none;
+  }
+}
+
+.topRight {
+  padding-bottom: $space-3;
+
+  h2 {
+    font-family: $font-heading;
+    font-size: clamp(2rem, 4vw + 0.5rem, 4rem);
+    font-weight: 700;
+    color: $color-cream;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: $space-5;
+  }
+}
+
+.topSub {
+  font-size: 0.95rem;
+  color: rgba($color-cream, 0.4);
+  line-height: 1.75;
+  max-width: 46ch;
+}
+
+// ── Oil cards grid ────────────────────────────────────────────
+.oils {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-block: 0;
+
+  @include respond-from('lg') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// ── Single card ───────────────────────────────────────────────
+.card {
+  padding: $space-12 0;
+  border-top: 1px solid rgba($color-cream, 0.08);
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s ease calc(var(--i, 0) * 0.15s),
+    transform 0.9s ease calc(var(--i, 0) * 0.15s);
+
+  &.cardVisible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @include respond-from('lg') {
+    padding: $space-16 $space-10;
+    border-top: none;
+    border-right: 1px solid rgba($color-cream, 0.08);
+
+    &:first-child { padding-left: 0; }
+    &:last-child  { border-right: none; padding-right: 0; }
+  }
+}
+
+// ── Card top (num + tags) ─────────────────────────────────────
+.cardMeta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-4;
+  margin-bottom: $space-6;
+}
+
+.cardNum {
+  font-family: $font-heading;
+  font-size: clamp(3.5rem, 7vw + 0.5rem, 6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba($color-cream, 0.06);
+  user-select: none;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  justify-content: flex-end;
+  padding-top: $space-2;
+
+  span {
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px $space-3;
+    color: rgba($color-cream, 0.35);
+    border: 1px solid rgba($color-cream, 0.1);
+  }
+}
+
+// ── Card name ─────────────────────────────────────────────────
+.cardNameWrap {
+  margin-bottom: $space-8;
+}
+
+.cardName {
+  font-family: $font-heading;
+  font-size: clamp(2.25rem, 4.5vw + 0.5rem, 3.75rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: $color-cream;
+  margin-bottom: $space-3;
+}
+
+.cardTagline {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.cardNote {
+  margin-top: $space-3;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba($color-cream, 0.28);
+  padding: $space-2 $space-3;
+  border: 1px solid rgba($color-cream, 0.08);
+  display: inline-block;
+}
+
+// Accent colors for tagline per oil variant
+.card--earth .cardTagline { color: $accent-earth; }
+.card--lime  .cardTagline { color: $accent-lime; }
+.card--green .cardTagline { color: $accent-green; }
+
+// ── Divider ───────────────────────────────────────────────────
+.cardDivider {
+  height: 1px;
+  background-color: rgba($color-cream, 0.08);
+  margin-bottom: $space-8;
+}
+
+// Accent tint on divider
+.card--earth .cardDivider { background-color: rgba($accent-earth, 0.25); }
+.card--lime  .cardDivider { background-color: rgba($accent-lime, 0.25); }
+.card--green .cardDivider { background-color: rgba($accent-green, 0.25); }
+
+// ── Description ───────────────────────────────────────────────
+.cardDesc {
+  font-size: 0.9rem;
+  color: rgba($color-cream, 0.48);
+  line-height: 1.8;
+  margin-bottom: $space-5;
+}
+
+.cardClosing {
+  font-family: $font-heading;
+  font-size: clamp(1rem, 1.5vw + 0.25rem, 1.25rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+  margin-bottom: $space-8;
+}
+
+// Closing phrase accent
+.card--earth .cardClosing { color: rgba($accent-earth, 0.8); }
+.card--lime  .cardClosing { color: rgba($accent-lime, 0.8); }
+.card--green .cardClosing { color: rgba($accent-green, 0.8); }
+
+// ── Uses ──────────────────────────────────────────────────────
+.cardUses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+
+  span {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: rgba($color-cream, 0.35);
+    background-color: rgba($color-cream, 0.04);
+    padding: $space-2 $space-3;
+    border: 1px solid rgba($color-cream, 0.07);
+  }
+}
+
+// Accent on uses border per variant
+.card--earth .cardUses span { border-color: rgba($accent-earth, 0.15); }
+.card--lime  .cardUses span { border-color: rgba($accent-lime, 0.15); }
+.card--green .cardUses span { border-color: rgba($accent-green, 0.15); }
+
+@media (prefers-reduced-motion: reduce) {
+  .topInner,
+  .card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

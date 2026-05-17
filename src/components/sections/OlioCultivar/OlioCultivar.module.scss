@@ -1,0 +1,270 @@
+@use '../../../styles/shared' as *;
+
+.section {
+  background-color: $color-ink;
+}
+
+// ── Section header ────────────────────────────────────────────
+.sectionHead {
+  border-bottom: 1px solid rgba($color-cream, 0.08);
+  padding-top: $space-16;
+}
+
+.headInner {
+  @include container;
+  padding-bottom: $space-12;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+  max-width: 860px;
+
+  &.headVisible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.eyebrow {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: $color-lime;
+  margin-bottom: $space-6;
+}
+
+.title {
+  font-family: $font-heading;
+  font-size: clamp(2rem, 4vw + 0.5rem, 4rem);
+  font-weight: 700;
+  color: $color-cream;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin-bottom: $space-6;
+
+  em {
+    font-style: italic;
+    color: $color-lime;
+  }
+}
+
+.intro {
+  font-size: 0.95rem;
+  color: rgba($color-cream, 0.45);
+  line-height: 1.8;
+  max-width: 52ch;
+}
+
+// ── Cards ─────────────────────────────────────────────────────
+.cards {
+  @include container;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  padding-block: 0;
+
+  @include respond-from('lg') {
+    grid-template-columns: 3fr 2fr; // Montelocco protagonista
+  }
+}
+
+.card {
+  padding: $space-16 0;
+  border-bottom: 1px solid rgba($color-cream, 0.08);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s ease calc(var(--i, 0) * 0.15s),
+    transform 0.9s ease calc(var(--i, 0) * 0.15s);
+
+  &.cardVisible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @include respond-from('lg') {
+    padding-right: $space-16;
+    border-right: 1px solid rgba($color-cream, 0.08);
+    border-bottom: none;
+
+    &:last-child {
+      padding-right: 0;
+      padding-left: $space-16;
+      border-right: none;
+    }
+  }
+}
+
+// ── Card top ──────────────────────────────────────────────────
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-4;
+  margin-bottom: $space-8;
+}
+
+.cardNum {
+  font-family: $font-heading;
+  font-size: clamp(4rem, 8vw + 0.5rem, 7rem);
+  font-weight: 700;
+  color: rgba($color-cream, 0.07);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  justify-content: flex-end;
+  padding-top: $space-3;
+
+  span {
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba($color-cream, 0.35);
+    border: 1px solid rgba($color-cream, 0.12);
+    padding: 3px $space-3;
+  }
+}
+
+// ── Card name ─────────────────────────────────────────────────
+.cardName {
+  margin-bottom: $space-10;
+
+  h3 {
+    font-family: $font-heading;
+    font-size: clamp(2.5rem, 5vw + 0.5rem, 4.5rem);
+    font-weight: 700;
+    color: $color-cream;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    margin-bottom: $space-3;
+  }
+}
+
+.nickname {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba($color-cream, 0.4);
+  margin-bottom: $space-2;
+}
+
+.origin {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba($color-cream, 0.25);
+  margin-bottom: $space-4;
+}
+
+// Montelocco – protagonista: h3 più grande
+.cardPrimary .cardName h3 {
+  font-size: clamp(3rem, 6vw + 0.5rem, 6rem);
+}
+
+// Bianello – compagna: leggermente de-enfatizzata
+.cardSecondary {
+  .cardName h3 {
+    font-size: clamp(2rem, 4vw + 0.25rem, 3.25rem);
+    color: rgba($color-cream, 0.65);
+  }
+}
+
+// ── Maturazione badge variants ─────────────────────────────────
+.badgePrimary {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $color-ink;
+  background-color: $color-lime;
+  padding: 3px $space-3;
+}
+
+.badgeSecondary {
+  display: inline-block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: $color-cream;
+  background-color: rgba($color-earth-400, 0.25);
+  border: 1px solid rgba($color-earth-400, 0.4);
+  padding: 3px $space-3;
+}
+
+// ── Characteristics ───────────────────────────────────────────
+.characteristics {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $space-10;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  border-top: 1px solid rgba($color-cream, 0.08);
+  padding-top: $space-8;
+
+  li {
+    display: flex;
+    gap: $space-4;
+    font-size: 0.88rem;
+    color: rgba($color-cream, 0.5);
+    line-height: 1.6;
+
+    span {
+      color: rgba($color-lime, 0.5);
+      flex-shrink: 0;
+    }
+  }
+}
+
+// ── Oil profile ───────────────────────────────────────────────
+.oilProfile {
+  background-color: rgba($color-cream, 0.03);
+  border: 1px solid rgba($color-cream, 0.08);
+  padding: $space-6;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-2;
+
+    li {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba($color-cream, 0.55);
+      background-color: rgba($color-cream, 0.05);
+      padding: $space-2 $space-3;
+      letter-spacing: 0.04em;
+    }
+  }
+}
+
+.oilProfileTitle {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $color-lime;
+  margin-bottom: $space-4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headInner,
+  .card {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
